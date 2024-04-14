@@ -1,9 +1,11 @@
+// Import required modules
 const fs = require('fs');
 const inquirer = require('inquirer');
 const Circle = require('./lib/circle');
 const Square = require('./lib/square');
 const Triangle = require('./lib/triangle');
 
+// Array of questions for user input
 const questions = [
     {
         type: 'input',
@@ -43,24 +45,29 @@ const questions = [
     }
 ];
 
+// Function to asynchronously prompt user for input
 async function getAnswers() {
     return inquirer.prompt(questions);
 }
 
+// Function to validate color input
 function isValidColor(value) {
     let colorRegex = new RegExp(/^[a-zA-Z]+$/);
     let hexRegex = new RegExp(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/);
     return colorRegex.test(value) || hexRegex.test(value);
 }
 
+// Function to render the logo based on user input
 function renderLogo(answers) {
     const { size, text, textColor, shape, shapeColor } = answers;
     const fontSize = Math.round(size * 0.2);
     let shapeRender = '';
 
+    // Render text SVG
     console.log('Rendering text...');
     const textSvg = `<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="${textColor}" font-size="${fontSize}">${text}</text>`;
 
+    // Render shape SVG based on user's choice
     console.log('Rendering shape...');
     switch (shape) {
         case 'circle':
@@ -77,6 +84,7 @@ function renderLogo(answers) {
             break;
     }
 
+    // Combine text and shape SVG into final logo SVG
     console.log('Rendering logo...');
     const svg = `<svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
     ${shapeRender}
@@ -86,11 +94,13 @@ function renderLogo(answers) {
     return svg;
 }
 
+// Prompt user for input and generate logo
 getAnswers().then((answers) => {
     const svg = renderLogo(answers);
     const { filename } = answers;
     const path = `./output/${filename}.svg`;
 
+    // Write logo SVG to file
     fs.writeFile(path, svg, (err) => {
         if (err) {
             console.error('Error saving file: ', err);
