@@ -3,7 +3,6 @@ const inquirer = require('inquirer');
 const Circle = require('./lib/circle');
 const Square = require('./lib/square');
 const Triangle = require('./lib/triangle');
-const { get } = require('http');
 
 const questions = [
     {
@@ -11,7 +10,6 @@ const questions = [
         name: 'size',
         message: 'What size would you like your logo to be?',
         validate: (value) => Number.isInteger(Number(value)) ? true : 'Please enter a valid number.'
-
     },
     {
         type: 'input',
@@ -45,14 +43,14 @@ const questions = [
     }
 ];
 
+async function getAnswers() {
+    return inquirer.prompt(questions);
+}
+
 function isValidColor(value) {
     let colorRegex = new RegExp(/^[a-zA-Z]+$/);
     let hexRegex = new RegExp(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/);
     return colorRegex.test(value) || hexRegex.test(value);
-}
-
-async function getAnswers() {
-    return inquirer.prompt(questions);
 }
 
 function renderLogo(answers) {
@@ -88,27 +86,16 @@ function renderLogo(answers) {
     return svg;
 }
 
-// const circle = new Circle('red', 300);
-// const square = new Square('red', 300);
-// const triangle = new Triangle('red', 300);
-
-// console.log(circle.render());
-// console.log(square.render());
-// console.log(triangle.render());
-
-// const svg = `<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-// ${circle.render()}
-// ${square.render()}
-// ${triangle.render()}
-// </svg>`;
-
-// const svg = `<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
-//     ${triangle.render()}
-// </svg>`;
-
 getAnswers().then((answers) => {
     const svg = renderLogo(answers);
     const { filename } = answers;
-    fs.writeFileSync(`./examples/${filename}.svg`, svg);
-    console.log(`Logo saved to ./examples/${filename}.svg`);
+    const path = `./output/${filename}.svg`;
+
+    fs.writeFile(path, svg, (err) => {
+        if (err) {
+            console.error('Error saving file: ', err);
+        } else {
+            console.log(`Logo saved to ${path}`);
+        }
+    });
 });

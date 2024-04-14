@@ -1,4 +1,4 @@
-<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg">
-    <rect x="0" y="0" width="40" height="40" fill="#858959" />
-    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#782378" font-size="8">jpn</text>
+<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="300" cy="300" r="300" fill="cyan" />
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="orange" font-size="120">AbC</text>
 </svg>
