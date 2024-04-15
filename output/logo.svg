@@ -1,4 +1,4 @@
 <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
     <rect x="50" y="0" width="200" height="200" fill="black" />
-    <text x="150" y="105" dominant-baseline="middle" text-anchor="middle" fill="purple" font-size="80">SQU</text>
+    <text x="150" y="105" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="80">JMM</text>
 </svg>
