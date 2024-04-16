@@ -79,7 +79,7 @@ The SVG Logo Maker is a Node.js application that allows users to generate custom
 
 ## Preview
 
-A video preview of the application can be found [here](https://jordanchives.github.com/svg-logo-maker)
+A video preview of the application can be found [here](https://jordanchives.github.io/svg-logo-maker)
 
 ## License
 
